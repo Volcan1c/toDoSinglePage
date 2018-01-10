@@ -19,7 +19,6 @@ exports.createTodo = function(req, res) {
     });
 };
 
-
 exports.getTodo = function(req, res) {
     db.Todo.findById(req.params.todoID)
     .then(function(foundTodo) {
