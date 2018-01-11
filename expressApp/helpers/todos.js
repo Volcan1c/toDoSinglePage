@@ -1,5 +1,6 @@
 var db = require("../models");
 
+//Defining the GET route of the API for all the todos
 exports.getTodos = function(req, res) {
     db.Todo.find()
     .then(function(todo) {
@@ -9,6 +10,7 @@ exports.getTodos = function(req, res) {
     });
 };
 
+//Defining the POST route of the API
 exports.createTodo = function(req, res) {
     db.Todo.create(req.body)
     .then(function(todoItem) {
@@ -19,6 +21,7 @@ exports.createTodo = function(req, res) {
     });
 };
 
+//Defining the GET route of the API of a single todo
 exports.getTodo = function(req, res) {
     db.Todo.findById(req.params.todoID)
     .then(function(foundTodo) {
@@ -28,6 +31,7 @@ exports.getTodo = function(req, res) {
     });
 };
 
+//Defining the PUT route of the API
 exports.updateTodo = function(req, res) {
     db.Todo.findOneAndUpdate({_id: req.params.todoID}, req.body, {new: true})
     .then(function(newTodo) {
@@ -37,6 +41,7 @@ exports.updateTodo = function(req, res) {
     });
 };
 
+//Defining the DELETE route of the API
 exports.deleteTodo = function(req, res) {
     db.Todo.remove({_id: req.params.todoID})
     .then(function() {
