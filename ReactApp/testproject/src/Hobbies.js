@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Pet.css";
 
-class HobbyList extends React.Component {
+class HobbyList extends Component {
     render() {
         const hobbies = ["World Domination", "Sleep", "Drink Milk"];
         const style1 = {fontSize: "1.5em"};

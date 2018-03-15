@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./Pet.css";
-import HobbyList from "./Hobbies.js"
+import HobbyList from "./Hobbies.js";
 
-class Pet extends React.Component {
+class Pet extends Component {
     render() {
         const style1 = {fontSize: "1.5em"};
         return(
