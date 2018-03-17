@@ -1,0 +1,24 @@
+.nav-bar {
+    border-bottom: 2px solid black ;
+    background-color: #3C6499;
+    margin-top: -22px;
+}
+
+.nav-options {
+    float: right;
+    margin-top: -50px;
+    padding-top: 1px;
+}
+
+.nav-options span {
+    margin-right: 20px;
+}
+
+.nav-options span:hover {
+    background-color: #639FEC;
+}
+
+.nav-title {
+    margin-left: 20px;
+    padding-top: 15px;
+}
