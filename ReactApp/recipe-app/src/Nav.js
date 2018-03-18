@@ -4,15 +4,15 @@ import "./Nav.css";
 class Navbar extends Component {
     render() {
         return (
-            <div className = "nav-bar">
-                <h1 className="nav-title">RecipeApp</h1>
-                <div className="nav-options">
-                    <span>New Recipe</span>
-                    <span>Home</span>
-                    <span>About</span>
-                    <span>Contact Us</span>
-                </div>
-            </div>
+            <header>
+                <h2><a>RecipeApp</a></h2>
+                <nav>
+                    <li><a>New Recipe</a></li>
+                    <li><a>Home</a></li>
+                    <li><a>About</a></li>
+                    <li><a>Contact Us</a></li>
+                </nav>
+            </header>
         )
     }
 }

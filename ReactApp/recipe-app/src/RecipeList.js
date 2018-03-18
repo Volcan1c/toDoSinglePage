@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Recipe from "./Recipe";
 import "./RecipeList.css";
 
 class RecipeList extends Component {
@@ -21,30 +22,14 @@ class RecipeList extends Component {
           }]
       }
     render() {
-        // const {title,instructions,img} = this.props;
-        // const ingredients = this.props.ingredients.map((ing, ind) => {
-        //     return <li key = {ind}>{ing}</li>;
-        // });
-        return(
-            <div className="recipe-list">
-                {this.props.recipes.map((rec, index) => {
-                    const ingredients = rec.ingredients.map((ing, ind) => {
-                        return <li key = {ind}>{ing}</li>;
-                    });
-                    return <div className="recipe-card">
-                        <div className="recipe-card-image">
-                            <img src={rec.img} alt={rec.title} />
-                        </div>
-                        <div className="recipe-card-content">
-                            <h3 className="recipe-title"> Recipe {rec.title} </h3>
-                            <h4> Ingredients: </h4>
-                            <ul> {ingredients} </ul>
-                            <h4> Instructions: </h4>
-                            <p> {rec.instructions} </p>
-                        </div>
-                    </div>;
-                })}
-            </div>
+        const recipes = this.props.recipes.map((r,index) => (
+          <Recipe key={index} {...r} />
+        ));
+        
+        return (
+          <div className="recipe-list">
+            {recipes}
+          </div>
         );
     }
 }
