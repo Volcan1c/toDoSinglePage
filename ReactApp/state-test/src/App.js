@@ -22,11 +22,20 @@ class App extends Component {
       ]
     };
     setTimeout(() => {
-      let rand = Math.floor(Math.random()*4);
-      let rand2 = Math.floor(Math.random()*2);
-      var temp = this.state.instructors;
-      temp[rand].hobbies[rand2] = "";
-      this.setState({instructors: temp});
+      const randInst = Math.floor(Math.random()*this.state.instructors.length);
+      const hobbyIndex = Math.floor(Math.random()* this.state.instructors[randInst].hobbies.length);
+      const instructors = this.state.instructors.map((inst, index) => {
+        if (index === randInst) {
+          const hobbies = [...inst.hobbies];
+          hobbies.splice(hobbyIndex,1);
+          return {
+            ...inst,
+            hobbies
+          };
+        }
+        return inst;
+      });
+      this.setState({instructors});
     },5000);
   }
   render() {
