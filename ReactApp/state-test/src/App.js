@@ -21,6 +21,13 @@ class App extends Component {
         }
       ]
     };
+    setTimeout(() => {
+      let rand = Math.floor(Math.random()*4);
+      let rand2 = Math.floor(Math.random()*2);
+      var temp = this.state.instructors;
+      temp[rand].hobbies[rand2] = "";
+      this.setState({instructors: temp});
+    },5000);
   }
   render() {
     const instructors = this.state.instructors.map((instructor, index) => (
