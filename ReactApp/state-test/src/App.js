@@ -1,22 +1,39 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {favColor: "red"};
-    setTimeout(() => {
-      this.setState({favColor: "blue"})
-      console.log(this.state.favColor) //gets logged after the timeout ends -> blue
-    },5000);
-    console.log(this.state.favColor)//gets logged instantly -> red
+    this.state = {
+      instructors: [
+        {
+          name: 'Tim',
+          hobbies: ['sailing', 'react']
+        }, {
+          name: 'Matt',
+          hobbies: ['math', 'd3']
+        }, {
+          name: 'Colt',
+          hobbies: ['css', 'hiking']
+        }, {
+          name: 'Elie',
+          hobbies: ['music', 'es2015']
+        }
+      ]
+    };
   }
   render() {
+    const instructors = this.state.instructors.map((instructor, index) => (
+      <li key={index}>
+        <h3>{instructor.name}</h3>
+        <h4>Hobbies: {instructor.hobbies.join(", ")}</h4>
+      </li>
+    ));
     return (
       <div className="App">
-        My favorite color is:
-        {this.state.favColor}
+        <ul>
+          {instructors}
+        </ul>
       </div>
     );
   }
