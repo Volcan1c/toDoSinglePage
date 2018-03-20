@@ -1,0 +1,6 @@
+.box {
+  width: 12.5%;
+  height: 150px;
+  float: right;
+  display: flex;
+}
