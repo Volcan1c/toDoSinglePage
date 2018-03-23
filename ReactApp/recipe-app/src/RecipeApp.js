@@ -9,19 +9,19 @@ class RecipeApp extends Component {
     super(props);
     this.state = {
       recipes: [{
-        id: 1,
+        id: 0,
         title: "Pasta",
         ingredients: ["flour", "water"],
         instructions: "Mix ingredients",
         img: "pasta.jpg"
       },{
-        id: 2,
+        id: 1,
         title: "Steak",
         ingredients: ["Meat", "Salt"],
         instructions: "Salt the steak and cook",
         img: "steak.jpg"
       },{
-        id: 3,
+        id: 2,
         title: "Burger",
         ingredients: ["Buns", "Patty"],
         instructions: "Get the patty in the buns",
@@ -29,15 +29,30 @@ class RecipeApp extends Component {
       }],
       nextRecipeID: 3,
     };
+    this.handleSave = this.handleSave.bind(this);
+    this.showForm = false;
   }
+  
+  
+  
+  handleSave(recipe) {
+    this.setState((prevState, props) => {
+      const newRecipe = {...recipe, id: this.state.nextRecipeID};
+      return {
+        nextRecipeID: prevState.nextRecipeID + 1,
+        recipes: [...this.state.recipes, newRecipe],
+        showForm: false
+      };
+    });
+  }
+  
   render() {
+    const {showForm} = this.state;
     return (
       <div className="App"> 
-        <Navbar />
-        <RecipeInput />
-        <RecipeList 
-          recipes = {this.state.recipes}
-        />
+        <Navbar onNewRecipe = {() => this.setState({showForm: true})}/>
+        { showForm ? <RecipeInput onSave = {this.handleSave} onClose = {() => this.setState({showForm: false})}/> : null }
+        <RecipeList recipes = {this.state.recipes}/>
       </div>
     );
   }
