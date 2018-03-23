@@ -28,12 +28,16 @@ class RecipeApp extends Component {
         img: "burger.jpg"
       }],
       nextRecipeID: 3,
+      showForm: false
     };
     this.handleSave = this.handleSave.bind(this);
-    this.showForm = false;
+    this.onDelete = this.onDelete.bind(this);
   }
   
-  
+  onDelete(id) {
+    const recipes = this.state.recipes.filter(r => r.id !== id);
+    this.setState({recipes});
+  }
   
   handleSave(recipe) {
     this.setState((prevState, props) => {
@@ -52,7 +56,7 @@ class RecipeApp extends Component {
       <div className="App"> 
         <Navbar onNewRecipe = {() => this.setState({showForm: true})}/>
         { showForm ? <RecipeInput onSave = {this.handleSave} onClose = {() => this.setState({showForm: false})}/> : null }
-        <RecipeList recipes = {this.state.recipes}/>
+        <RecipeList recipes = {this.state.recipes} onDelete = {this.onDelete}/>
       </div>
     );
   }
