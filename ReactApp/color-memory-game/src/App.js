@@ -11,7 +11,12 @@ class App extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {colors: this.newColors(), shown: this.props.showArr};
+    this.state = {
+      colors: this.newColors(), 
+      shown: this.props.showArr,
+      lastClickedColor: "",
+      lastClickedIndex: -1
+    };
     this.newColors = this.newColors.bind(this);
     this.newGame = this.newGame.bind(this);
     this.clicked = this.clicked.bind(this);
@@ -20,12 +25,25 @@ class App extends Component {
   
   clicked(color, shown, index) {
     const tempState = Object.assign(this.state);
-    tempState.shown[index] = true;
-    this.setState(tempState);
+    if (this.state.lastClickedColor === "") {
+      tempState.shown[index] = true;
+      tempState.lastClickedColor = color;
+      tempState.lastClickedIndex = index;
+      this.setState(tempState);
+    } else if (this.state.lastClickedColor === color) {
+      tempState.shown[index] = true;
+      tempState.lastClickedColor = "";
+      this.setState(tempState);
+    } else {
+      tempState.lastClickedColor = "";
+      tempState.shown[index] = false;
+      tempState.shown[this.state.lastClickedIndex] = false;
+      this.setState(tempState);
+    }
   }
   
   newGame() {
-    this.setState({colors: this.newColors(), shown: this.hiddenArr()});
+    this.setState({colors: this.newColors(), shown: this.hiddenArr(), lastClickedColor: "", lastClickedIndex: -1});
   }
   
   hiddenArr() {
