@@ -15,12 +15,20 @@ class App extends Component {
       colors: this.newColors(), 
       shown: this.props.showArr,
       lastClickedColor: "",
-      lastClickedIndex: -1
+      lastClickedIndex: -1,
+      text: "Try to reveal all the blocks!"
     };
     this.newColors = this.newColors.bind(this);
     this.newGame = this.newGame.bind(this);
     this.clicked = this.clicked.bind(this);
+    this.checkHandleWin = this.checkHandleWin.bind(this);
     //this.newGame();
+  }
+  
+  checkHandleWin() {
+    if (!this.state.shown.includes(false)) {
+      this.setState({text: "Congratulations! You win!"});
+    }
   }
   
   clicked(color, shown, index) {
@@ -34,16 +42,21 @@ class App extends Component {
       tempState.shown[index] = true;
       tempState.lastClickedColor = "";
       this.setState(tempState);
+      this.checkHandleWin();
     } else {
       tempState.lastClickedColor = "";
-      tempState.shown[index] = false;
-      tempState.shown[this.state.lastClickedIndex] = false;
+      tempState.shown[index] = true;
       this.setState(tempState);
+      setTimeout(() => {
+        tempState.shown[index] = false;
+        tempState.shown[this.state.lastClickedIndex] = false;
+        this.setState(tempState);
+      },500);
     }
   }
   
   newGame() {
-    this.setState({colors: this.newColors(), shown: this.hiddenArr(), lastClickedColor: "", lastClickedIndex: -1});
+    this.setState({colors: this.newColors(), shown: this.hiddenArr(), lastClickedColor: "", lastClickedIndex: -1, text: "Try to reveal all the blocks!"});
   }
   
   hiddenArr() {
@@ -67,6 +80,7 @@ class App extends Component {
       <div>
         <Navbar onNewGame = {this.newGame}/>
         <BlockList colors = {this.state.colors} shown = {this.state.shown} clicked = {this.clicked}/>
+        <h2 className = "text">{this.state.text}</h2>
       </div>
     );
   }

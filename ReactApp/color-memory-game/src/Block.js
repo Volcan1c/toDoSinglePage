@@ -12,7 +12,7 @@ class Block extends Component {
     render() {
         const {color, shown} = this.props;
         if (shown) {
-            return <button className = "block-box" style = {{backgroundColor: color}} onClick = {this.handleClick}></button>;
+            return <button className = "block-box" style = {{backgroundColor: color}}></button>;
         }
         return <button className = "block-box" style = {{backgroundColor: "black"}} onClick = {this.handleClick}></button>;
     }
