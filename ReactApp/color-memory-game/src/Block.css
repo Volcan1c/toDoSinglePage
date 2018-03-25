@@ -1,0 +1,8 @@
+.block-box {
+    width: 11%;
+    height: 200px;
+    border-radius: 15px;
+    display: flex;
+    float: left;
+    margin: 5px 0.75% 5px 0.75%;
+}
