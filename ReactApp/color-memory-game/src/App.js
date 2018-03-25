@@ -47,7 +47,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar />
+        <Navbar onNewGame = {this.newGame}/>
         <BlockList colors = {this.state.colors} shown = {this.state.shown} clicked = {this.clicked}/>
       </div>
     );
