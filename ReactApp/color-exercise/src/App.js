@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
-import Box from "./Box"
+import Box from "./Box";
 import './App.css';
 
+const NUM_BOXES = 32;
 class App extends Component {
   
   constructor(props) {
     super(props);
-    this.state = {colors: this.props.starter};
-    setInterval(() => {
-      const randIndex = Math.floor(Math.random()*this.state.colors.length);
-      const randColor = Math.floor(Math.random()*this.props.allColors.length);
-      const tempColors = this.state.colors;
-      tempColors[randIndex] = this.props.allColors[randColor];
-      this.setState({colors: tempColors});
+    const boxes = Array(NUM_BOXES).fill()
+      .map(this.getRandomColor, this);
+    this.state = {boxes};
+    this.intervalId = setInterval(() => {
+      const boxes = this.state.boxes.slice();
+      const ind = Math.floor(Math.random()*boxes.length);
+      boxes[ind] = this.getRandomColor();
+      this.setState({boxes});
     },300);
   }
   
+  getRandomColor() {
+    let colorIndex = Math.floor(Math.random() * this.props.allColors.length);
+    return this.props.allColors[colorIndex];
+  }
+  
+  componentWillUnmount() {
+    clearInterval(this.intervalId);
+  }
+  
   render() {
-
+    const boxes = this.state.boxes.map((color, index) => (
+        <Box key = {index} color = {color}/>
+      ));
     return (
       <div className="App">
-        {this.state.colors.map((color, ind) => {
-          return <Box key={ind} color={color} />;
-        })}
+        {boxes}
       </div>
     );
   }
