@@ -29,7 +29,7 @@ class App extends Component {
   
   handleSubmit(formSubmitEvent) {
     formSubmitEvent.preventDefault();
-    if (this.state.selectedCountry === this.state.correctCountry) {
+    if (this.state.selectedCountry === this.state.correctCountry.name) {
       this.setState({gameState: "win"});
     } else {
       this.setState({gameState: "lose"});
@@ -92,12 +92,12 @@ class App extends Component {
         button = <button onClick = {this.newGame}>Start the Game!</button>;
       } else if (this.state.gameState === "win") {
         views = <div>
-            <p>Correct!: {this.state.correctCountry}</p>
+            <p>Correct!: {this.state.correctCountry.name}</p>
             <button onClick = {this.newGame}>New Game!</button>
           </div>;
       } else {
         views = <div>
-            Incorrect!: {this.state.correctCountry}
+            <p>Incorrect!: {this.state.correctCountry.name}</p>
             <button onClick = {this.newGame}>New Game!</button>
           </div>;
       }
@@ -106,7 +106,7 @@ class App extends Component {
     return (
       [views,
       button,
-      <img src = {this.state.flagImage} alt = ""/>]
+      <img className = "flag" src = {this.state.flagImage} alt = ""/>]
     );
   }
 }
