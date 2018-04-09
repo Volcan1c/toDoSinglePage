@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import worldImg from './world.jpg';
 
 class App extends Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class App extends Component {
     });
     let correctCountry = randomCountries[Math.floor(Math.random()*randomCountries.length)];
     let flagImage = correctCountry.flag;
-    this.setState({fourCountries: randomCountries, correctCountry: correctCountry, flagImage: flagImage, gameState: "guess"});
+    this.setState({fourCountries: randomCountries, correctCountry: correctCountry, flagImage: flagImage, gameState: "guess", selectedCountry: ""});
   }
   
   componentDidMount() {
@@ -70,43 +71,52 @@ class App extends Component {
     let button = null;
     if (this.state.countries && this.state.countries.length !== 0) {
       if (this.state.gameState === "guess") {
-        views = <form onSubmit = {this.handleSubmit}>
-          <div>
-            {this.state.fourCountries.map(country => {
-              return (
-                <div>
-                  <label>    
-                    <input type = "radio" value = {country.name} 
-                            checked = {this.state.selectedCountry === country.name}
-                            onChange = {this.handleChange}
-                            key = {country.alpha3Code}/>
-                    {country.name}
-                  </label>
-                </div>
-              );
-            })}
-          </div>
-          <button type = "submit">Submit</button>
-        </form>;
+        views = <div style={{marginTop: '15px'}}>
+          <form className = "flag-form" onSubmit = {this.handleSubmit}>
+            <div className = "option-block">
+              {this.state.fourCountries.map(country => {
+                return (
+                  <div className = "flag-option">
+                    <label>    
+                      <input type = "radio" value = {country.name} 
+                              checked = {this.state.selectedCountry === country.name}
+                              onChange = {this.handleChange}
+                              key = {country.alpha3Code}/>
+                      {country.name}
+                    </label>
+                  </div>
+                );
+              })}
+            </div>
+            <button className = "btn" type = "submit">Submit</button>
+          </form>
+        </div>;
       } else if (this.state.gameState === "start") {
-        button = <button onClick = {this.newGame}>Start the Game!</button>;
+        button = <button className = "btn" onClick = {this.newGame}>Start the Game!</button>;
       } else if (this.state.gameState === "win") {
-        views = <div>
+        views = <div className='flag-answer'>
             <p>Correct!: {this.state.correctCountry.name}</p>
-            <button onClick = {this.newGame}>New Game!</button>
+            <button className = "btn" onClick = {this.newGame}>New Game!</button>
           </div>;
       } else {
-        views = <div>
+        views = <div className='flag-answer'>
             <p>Incorrect!: {this.state.correctCountry.name}</p>
-            <button onClick = {this.newGame}>New Game!</button>
+            <button className = "btn" onClick = {this.newGame}>New Game!</button>
           </div>;
       }
     }
     
     return (
-      [views,
-      button,
-      <img className = "flag" src = {this.state.flagImage} alt = ""/>]
+      <div className="flag-app">
+        <header
+          className="title-header"
+          style={{ backgroundImage: `url(${worldImg})` }}>
+          <h1 className="title-text">Guess The Flag</h1>
+        </header>
+        {views}
+        {button}
+        <img className="flag-img" src = {this.state.flagImage} alt = ""/>
+      </div>
     );
   }
 }
